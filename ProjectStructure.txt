@@ -1,0 +1,117 @@
+modaglimmora-backend/
+│
+├── app/
+│   ├── main.py                      # App bootstrap
+│   ├── lifespan.py                  # Startup / shutdown hooks
+│   │
+│   ├── core/                        # Platform-level concerns
+│   │   ├── config.py                # Settings (Pydantic v2)
+│   │   ├── database.py              # MongoDB client (test/prod ready)
+│   │   ├── security.py              # JWT, hashing, token logic
+│   │   ├── dependencies.py          # Auth, RBAC, tenant dependencies
+│   │   ├── constants.py             # Roles, statuses, enums
+│   │   ├── exceptions.py            # Custom HTTP exceptions
+│   │   └── logging.py               # Structured logging
+│   │
+│   ├── shared/                      # Reusable cross-domain logic
+│   │   ├── tenant.py                # Tenant isolation utilities
+│   │   ├── pagination.py            # Pagination helpers
+│   │   ├── audit.py                 # Audit logging helpers
+│   │   ├── policies.py              # Policy / rule evaluation
+│   │   └── utils.py                 # Generic helpers
+│   │
+│   ├── domains/                     # DOMAIN-DRIVEN DESIGN
+│   │   ├── auth/
+│   │   │   ├── router.py             # /auth/*
+│   │   │   ├── schemas.py            # Request/Response models
+│   │   │   ├── service.py            # Auth business logic
+│   │   │   └── repository.py         # MongoDB access
+│   │   │
+│   │   ├── admin/
+│   │   │   ├── router.py             # /admin/*
+│   │   │   ├── schemas.py
+│   │   │   ├── service.py
+│   │   │   └── repository.py
+│   │   │
+│   │   ├── tenant/                  # Tenant lifecycle mgmt
+│   │   │   ├── router.py
+│   │   │   ├── schemas.py
+│   │   │   ├── service.py
+│   │   │   └── repository.py
+│   │   │
+│   │   ├── user/
+│   │   │   ├── router.py             # /me, user mgmt
+│   │   │   ├── schemas.py
+│   │   │   ├── service.py
+│   │   │   └── repository.py
+│   │   │
+│   │   ├── brand/
+│   │   │   ├── inventory/
+│   │   │   │   ├── router.py
+│   │   │   │   ├── schemas.py
+│   │   │   │   ├── service.py
+│   │   │   │   └── repository.py
+│   │   │   │
+│   │   │   ├── policies/
+│   │   │   │   ├── router.py
+│   │   │   │   ├── schemas.py
+│   │   │   │   ├── service.py
+│   │   │   │   └── repository.py
+│   │   │
+│   │   ├── uhni/
+│   │   │   ├── router.py
+│   │   │   ├── schemas.py
+│   │   │   ├── service.py
+│   │   │   └── repository.py
+│   │   │
+│   │   ├── consumer/
+│   │   │   ├── router.py
+│   │   │   ├── schemas.py
+│   │   │   ├── service.py
+│   │   │   └── repository.py
+│   │   │
+│   │   ├── ai_governance/            # Future-proof AI controls
+│   │   │   ├── router.py
+│   │   │   ├── schemas.py
+│   │   │   ├── service.py
+│   │   │   └── repository.py
+│   │   │
+│   │   └── internal/
+│   │       ├── router.py             # Service-to-service APIs
+│   │       └── schemas.py
+│   │
+│   ├── middleware/
+│   │   ├── tenant_context.py         # Inject tenant into request
+│   │   ├── audit_middleware.py       # Auto audit logging
+│   │   └── rate_limit.py             # Optional
+│   │
+│   ├── events/                       # Async / event-driven hooks
+│   │   ├── producer.py
+│   │   └── consumer.py
+│   │
+│   └── migrations/                   # DB migrations (later)
+│
+├── tests/
+│   ├── conftest.py                   # Test app + DB fixtures
+│   │
+│   ├── unit/
+│   │   ├── core/
+│   │   ├── shared/
+│   │   └── domains/
+│   │
+│   ├── integration/
+│   │   ├── auth/
+│   │   ├── admin/
+│   │   ├── brand/
+│   │   ├── uhni/
+│   │   └── consumer/
+│   │
+│   └── e2e/
+│       └── api_flows_test.py
+│
+├── .env
+├── .env.test
+├── requirements.txt
+├── pyproject.toml
+├── Dockerfile
+└── README.md
